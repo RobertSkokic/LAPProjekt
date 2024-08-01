@@ -1,0 +1,165 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
+
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+body {
+    background: #EBEBEB;
+    overflow: auto;
+    font-family: "Open Sans", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: normal;
+    font-style: normal;
+}
+
+h3 {
+    margin: 1%;
+}
+
+td {
+    border-bottom: 1px solid #ddd;
+}
+
+tbody tr:nth-child(even) {
+    background-color: #e6e6e6;
+}
+
+tbody tr:nth-child(odd) {
+    background-color: #DBDBDB;
+}
+
+
+.flexContainer{
+    display: flex;
+    border-radius: 12px;
+    background-color: white;
+    width: 90%;
+    margin: auto;
+}
+
+.flexComponents {
+    flex: 1;
+    margin: 10px;
+    padding: 1%;
+    border-radius: 12px;
+    background-color: white;
+}
+
+.container {
+    border-radius: 12px;
+    background-color: white;
+    width: 50%;
+    margin: auto;
+    padding: 3%;
+}
+
+.indexContainer {
+    border-radius: 12px;
+    background-color: white;
+    margin: auto;
+    padding: 3%;
+    width: 90%;
+}
+
+.btn, button {
+    background-color: gray;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+    .btn:hover, button:hover {
+        background-color: dimgray;
+        color: white;
+    }
+
+.einnahmeCreate {
+    background-color: limegreen;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    text-decoration: none;
+    margin: 1%;
+}
+
+    .einnahmeCreate:hover {
+        background-color: forestgreen;
+        color: white;
+    }
+
+.ausgabeCreate {
+    background-color: indianred;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    text-decoration: none;
+    margin: 1%;
+}
+
+    .ausgabeCreate:hover {
+        background-color: darkred;
+        color: white;
+    }
+
+.kategorieCreate {
+    background-color: dodgerblue;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    text-decoration: none;
+    margin: 1%;
+    float: right;
+}
+
+    .kategorieCreate:hover {
+        background-color: royalblue;
+        color: white;
+    }
+
+
+.tableTab button.active, .chartTab button.active {
+    background-color: lightslategray;
+}
+
+.tableTab button:hover, .chartTab button:hover {
+    background-color: darkgray;
+}
+
+
+.tableTabContent, .chartTabContent {
+    animation: fadeEffect 0.5s;
+}
+
+@keyframes fadeEffect {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+#searchEinnahmen { 
+    width: 100%; 
+    font-size: 16px; 
+    padding: 12px;
+    border: 1px solid #ddd; 
+}
+
+#searchAusgaben {
+    width: 100%;
+    font-size: 16px;
+    padding: 12px;
+    border: 1px solid #ddd;
+}

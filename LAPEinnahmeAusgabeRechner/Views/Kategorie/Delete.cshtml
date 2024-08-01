@@ -1,0 +1,101 @@
+﻿@model LAPEinnahmeAusgabeRechner.Models.dboSchema.Kategorie
+
+@{
+    ViewData["Title"] = "Delete";
+    var kategorien = ViewBag.Kategorien as IEnumerable<SelectListItem>;
+}
+<div class="container">
+    <h1>Delete</h1>
+
+    <h3>Are you sure you want to delete this?</h3>
+    <div>
+        <h4>Kategorie</h4>
+        <hr />
+        <dl class="row">
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Bezeichnung)
+            </dt>
+            <dd class="col-sm-14">
+                @Html.DisplayFor(model => model.Bezeichnung)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Farbe)
+            </dt>
+            <dd class="col-sm-14">
+                @Html.DisplayFor(model => model.Farbe)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Valid)
+            </dt>
+            <dd class="col-sm-14">
+                @Html.DisplayFor(model => model.Valid)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.ModUser)
+            </dt>
+            <dd class="col-sm-14">
+                @Html.DisplayFor(model => model.ModUser)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.ModTimestamp)
+            </dt>
+            <dd class="col-sm-14">
+                @Html.DisplayFor(model => model.ModTimestamp)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.CrUser)
+            </dt>
+            <dd class="col-sm-14">
+                @Html.DisplayFor(model => model.CrUser)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.CrTimestamp)
+            </dt>
+            <dd class="col-sm-14">
+                @Html.DisplayFor(model => model.CrTimestamp)
+            </dd>
+        </dl>
+
+        <form asp-action="Delete" onsubmit="return validateForm()">
+            <input type="hidden" asp-for="Kategorieid" />
+
+            @if (kategorien != null && kategorien.Any())
+            {
+                <div class="form-group">
+                    <label for="neueKategorieId">Neue Kategorie auswählen:</label>
+                    <select id="neueKategorieId" class="form-control" name="neueKategorieId">
+                        <option value="">-Kategorie auswählen-</option>
+                        @foreach (var kategorie in kategorien)
+                        {
+                            <option value="@kategorie.Value">@kategorie.Text</option>
+                        }
+                    </select>
+                </div>
+            }
+
+            <!-- Fehlermeldung wenn keine Kategorie -->
+            <div id="error-message" style="color: red; display: none;">
+                Bitte wählen Sie eine Kategorie aus.
+            </div>
+
+            <input type="submit" value="Delete" class="btn btn-danger" /> |
+            <a asp-controller="Home" asp-action="Index">Back to List</a>
+        </form>
+    </div>
+</div>
+
+
+<script>
+    function validateForm() {
+        var selectElement = document.getElementById("neueKategorieId");
+        var errorMessage = document.getElementById("error-message");
+
+        if (selectElement.value === "") {
+            errorMessage.style.display = "block";
+            return false;
+        }
+
+        errorMessage.style.display = "none";
+        return true;
+    }
+</script>

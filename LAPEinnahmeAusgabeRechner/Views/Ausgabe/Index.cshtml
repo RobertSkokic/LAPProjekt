@@ -1,0 +1,86 @@
+﻿@model IEnumerable<LAPEinnahmeAusgabeRechner.Models.dboSchema.Ausgabe>
+
+@{
+    ViewData["Title"] = "Index";
+}
+<div class="indexContainer">
+    <h1>Ausgabe Index</h1>
+
+    <p>
+        <a class="btn" asp-action="Create">Create New</a>
+    </p>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Beschreibung)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Betrag)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Datum)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Valid)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ModUser)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ModTimestamp)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.CrUser)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.CrTimestamp)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Kategorie)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Beschreibung)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Betrag)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Datum)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Valid)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ModUser)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ModTimestamp)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CrUser)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CrTimestamp)
+                    </td>
+                    <td style="border-right: 10px solid @item.Kategorie.Farbe">
+                        @Html.DisplayFor(modelItem => item.Kategorie.Bezeichnung)
+                    </td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.Ausgabeid">Edit</a> |
+                        <a asp-action="Details" asp-route-id="@item.Ausgabeid">Details</a> |
+                        <a asp-action="Delete" asp-route-id="@item.Ausgabeid">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+

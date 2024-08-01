@@ -1,0 +1,259 @@
+﻿@model LAPEinnahmeAusgabeRechner.ViewModels.HomeIndexViewModel
+
+@{
+    ViewData["Title"] = "Home Page";
+    var kategorien = ViewBag.Kategorien as List<SelectListItem>;
+    var statistiken = ViewBag.Statistics as LAPEinnahmeAusgabeRechner.ViewModels.StatisticsViewModel;
+}
+
+
+<!-- oberste div die alle komponenten enthält und display flex ist -->
+<div class="flexContainer">
+    
+    <!-- Hier ist der 2 große Part in der mitte die Filter Box -->
+    <div class="flexComponents filters">
+        <form asp-action="Index" method="get">
+            <div class="form-group">
+                <label for="startDatum">Start Datum:</label>
+                <!-- type data und max auf today damit man nicht in der Zukunft eintragen kann -> ist so auch in allen Creates und Edits eingebaut -->
+                <input type="date" max="@DateTime.Today.ToString("yyyy-MM-dd")" id="startDatum" name="startDatum" class="form-control" value="@Model.StartDatum?.ToString("yyyy-MM-dd")" />
+            </div>
+            <div class="form-group">
+                <label for="endDatum">End Datum:</label>
+                <input type="date" max="@DateTime.Today.ToString("yyyy-MM-dd")" id="endDatum" name="endDatum" class="form-control" value="@Model.EndDatum?.ToString("yyyy-MM-dd")" />
+            </div>
+            <div class="form-group">
+                <label for="KategorieId">Kategorie:</label>
+                <select id="KategorieId" name="KategorieId" class="form-control">
+                    <option value="">-Alle Kategorien-</option>
+                    @if (kategorien != null)
+                    {
+                        foreach (var kategorie in kategorien)
+                        {
+                            <option value="@kategorie.Value">@kategorie.Text</option>
+                        }
+                    }
+                </select>
+            </div>
+            <button style="margin-top: 10px" type="submit" class="btn btn-primary">Filtern</button>
+        </form>
+        <!-- Statistik die Daten zu den Einträgen gibt + visuell darstellt wievielle ein und ausgaben man hat insgesamt -->
+        <div class="flexComponents">
+            <canvas id="overviewChart"></canvas>
+        </div>
+        <div class="statistics flexComponents">
+            <h2>Übersichtsstatistik</h2>
+            <p><b>Einnahmen:</b> @statistiken.CountEinnahmen</p>
+            <p><b>Summe Einnahmen:</b> @statistiken.TotalEinnahmen€</p>
+            <p><b>Durchschnittliche Einnahmen:</b> @statistiken.AvgEinnahmen€</p>
+
+            <p><b>Ausgaben:</b> @statistiken.CountAusgaben</p>
+            <p><b>Summe Ausgaben:</b> @statistiken.TotalAusgaben €</p>
+            <p><b>Durchschnittliche Ausgaben:</b> @statistiken.AvgAusgaben€</p>
+        </div>
+    </div>
+
+    <!-- linken komponenten wie table + seine tabcontents-->
+    <div class="flexComponents">
+        <a style="float: right" class="kategorieCreate" asp-controller="Kategorie" asp-action="Create">Kategorie hinzufügen</a>
+
+        <!-- Einnahme und Ausgabe Table Tabs -->
+        <div class="tableTab">
+            <button id="tableDefaultOpen" class="tableTabLinks" onclick="openTab(event, 'Einnahme', 'tableTabContent', 'tableTabLinks')">Einnahmen</button>
+            <button class="tableTabLinks" onclick="openTab(event, 'Ausgabe', 'tableTabContent', 'tableTabLinks')">Ausgaben</button>
+        </div>
+
+        <!-- Tab Content der aufgeht wenn man auf Einnahme klickt -->
+        <div id="Einnahme" class="tableTabContent">
+            <h3>Einnahmen</h3>
+            <!-- Searchbar für Beschreibung bei der Einnahme Tabelle -->
+            <input type="text" id="searchEinnahmen" onkeyup="searchTable('searchEinnahmen', 'einnahmeTable')" placeholder="Nach Beschreibung suchen..">
+            <!-- Einnahme Table -->
+            <table id="einnahmeTable" class="table">
+                <thead>
+                    <tr>
+                        <th>Beschreibung</th>
+                        <th>Betrag</th>
+                        <th>Datum</th>
+                        <th>Kategorie</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Infos durch das Model ganz oben in der File holen -->
+                    @foreach (var item in Model.EinnahmenEinträge)
+                    {
+                        <tr style="border-left: 10px solid @item.Kategorie.Farbe">
+                            <td>@Html.DisplayFor(modelItem => item.Beschreibung)</td>
+                            <td>@Html.DisplayFor(modelItem => item.Betrag)</td>
+                            <td>@Html.DisplayFor(modelItem => item.Datum)</td>
+                            <td>@Html.DisplayFor(modelItem => item.Kategorie.Bezeichnung)</td>
+                            <td>
+                                <a asp-controller="Einnahme" asp-action="Edit" asp-route-id="@item.Einnahmeid">Edit</a>
+                                <a asp-controller="Einnahme" asp-action="Delete" asp-route-id="@item.Einnahmeid">Delete</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            <!-- Selectbox die angibt wieviele Einträge man sieht (nur für Einnahmen Tabelle) -->
+            <div class="flexComponents">
+                <label for="einnahmenEinträgeAnsicht">Anzeigen:</label>
+                <select id="einnahmenEinträgeAnsicht" onchange="showEinträge('einnahme', this.value)">
+                    <option value="10">Letzten 10</option>
+                    <option value="50">Letzten 50</option>
+                    <option value="alle">Alle</option>
+                </select>
+                <a class="einnahmeCreate" asp-controller="Einnahme" asp-action="Create">Einnahme hinzufügen</a>
+            </div>
+        </div>
+
+        <!-- Tab Content der aufgeht wenn man auf Ausgabe klickt -->
+        <div id="Ausgabe" class="tableTabContent">
+            <h3>Ausgaben</h3>
+            <!-- Searchbar für Beschreibung bei der Ausgabe Tabelle -->
+            <input type="text" id="searchAusgaben" onkeyup="searchTable('searchAusgaben', 'ausgabeTable')" placeholder="Nach Beschreibung suchen..">
+            <!-- Ausgabe Table -->
+            <table id="ausgabeTable" class="table">
+                <thead>
+                    <tr>
+                        <th>Beschreibung</th>
+                        <th>Betrag</th>
+                        <th>Datum</th>
+                        <th>Kategorie</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Infos durch das Model ganz oben in der File holen -->
+                    @foreach (var item in Model.AusgabenEinträge)
+                    {
+                        <tr style="border-left: 10px solid @item.Kategorie.Farbe">
+                            <td>@Html.DisplayFor(modelItem => item.Beschreibung)</td>
+                            <td>@Html.DisplayFor(modelItem => item.Betrag)</td>
+                            <td>@Html.DisplayFor(modelItem => item.Datum)</td>
+                            <td>@Html.DisplayFor(modelItem => item.Kategorie.Bezeichnung)</td>
+                            <td>
+                                <a asp-controller="Ausgabe" asp-action="Edit" asp-route-id="@item.Ausgabeid">Edit</a>
+                                <a asp-controller="Ausgabe" asp-action="Delete" asp-route-id="@item.Ausgabeid">Delete</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            <!-- Selectbox die angibt wieviele Einträge man sieht (nur für Ausgabe Tabelle) -->
+            <div class="flexComponents">
+                <label for="ausgabeEinträgeAnsicht">Anzeigen:</label>
+                <select id="ausgabeEinträgeAnsicht" onchange="showEinträge('ausgabe', this.value)">
+                    <option value="10">Letzten 10</option>
+                    <option value="50">Letzten 50</option>
+                    <option value="alle">Alle</option>
+                </select>
+                <a class="ausgabeCreate" asp-controller="Ausgabe" asp-action="Create">Ausgabe hinzufügen</a>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Top 5 Einnamen und Ausgaben Charts -->
+    <div class="flexComponents">
+        <!-- Tab Content für die beiden Charts -->
+        <div class="chartTab">
+            <button id="chartDefaultOpen" class="chartTabLinks" onclick="openTab(event, 'Top5Einnahme', 'chartTabContent', 'chartTabLinks')">Top 5 Einnahmen</button>
+            <button class="chartTabLinks" onclick="openTab(event, 'Top5Ausgabe', 'chartTabContent', 'chartTabLinks')">Top 5 Ausgaben</button>
+        </div>
+
+        <!-- Top 5 Einnahme Chart -->
+        <div id="Top5Einnahme" class="chartTabContent">
+            <h3>Top 5 Einnahmen</h3>
+            <div>
+                <canvas id="Top5EinnahmeChart"></canvas>
+            </div>
+        </div>
+
+        <!-- Top 5 Ausgaben Chart -->
+        <div id="Top5Ausgabe" class="chartTabContent">
+            <h3>Top 5 Ausgaben</h3>
+            <div>
+                <canvas id="Top5AusgabeChart"></canvas>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+<script>
+    var overviewChart = document.getElementById('overviewChart');
+    var einnahmeChart = document.getElementById('Top5EinnahmeChart');
+    var ausgabeChart = document.getElementById('Top5AusgabeChart');
+    //Daten aus der viewdata,holen
+    const top5Einnahmen = @Html.Raw(ViewData["top5EinnahmenEinträge"]);
+    const top5Ausgaben = @Html.Raw(ViewData["top5AusgabenEinträge"]);
+
+    //Daten aus der viewdata, und zu json umwandeln, da wir es noch nicht in der index gemacht haben weil andere Umstände
+    var totalEinnahmen = @Html.Raw(Json.Serialize(statistiken.TotalEinnahmen));
+    var totalAusgaben = @Html.Raw(Json.Serialize(statistiken.TotalAusgaben));
+
+    // Statistik Chart
+    new Chart(overviewChart, {
+        type: 'bar',
+        data: {
+            labels: ['Einnahmen', 'Ausgaben'],
+            datasets: [{
+                label: 'Summe',
+                data: [totalEinnahmen, totalAusgaben],
+                backgroundColor: ['#4CAF50', '#F44336']
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+
+    // Top 5 Einnahmen chart
+    new Chart(einnahmeChart, {
+        type: 'pie',
+        data: {
+            labels: top5Einnahmen.labels,
+            datasets: [{
+                label: 'Top 5 Income',
+                data: top5Einnahmen.data,
+                backgroundColor: top5Einnahmen.colors,
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+
+    // Top 5 Ausgaben chart
+    new Chart(ausgabeChart, {
+        type: 'pie',
+        data: {
+            labels: top5Ausgaben.labels,
+            datasets: [{
+                label: 'Top 5 Expenses',
+                data: top5Ausgaben.data,
+                backgroundColor: top5Ausgaben.colors,
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+</script>

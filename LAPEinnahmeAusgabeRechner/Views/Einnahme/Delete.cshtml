@@ -1,0 +1,77 @@
+﻿@model LAPEinnahmeAusgabeRechner.Models.dboSchema.Einnahme
+
+@{
+    ViewData["Title"] = "Delete";
+}
+<div class="container">
+    <h1>Delete</h1>
+
+    <h3>Are you sure you want to delete this?</h3>
+    <div>
+        <h4>Einnahme</h4>
+        <hr />
+        <dl class="row">
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Beschreibung)
+            </dt>
+            <dd class="col-sm-14">
+                @Html.DisplayFor(model => model.Beschreibung)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Betrag)
+            </dt>
+            <dd class="col-sm-14">
+                @Html.DisplayFor(model => model.Betrag)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Datum)
+            </dt>
+            <dd class="col-sm-14">
+                @Html.DisplayFor(model => model.Datum)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Valid)
+            </dt>
+            <dd class="col-sm-14">
+                @Html.DisplayFor(model => model.Valid)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.ModUser)
+            </dt>
+            <dd class="col-sm-14">
+                @Html.DisplayFor(model => model.ModUser)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.ModTimestamp)
+            </dt>
+            <dd class="col-sm-14">
+                @Html.DisplayFor(model => model.ModTimestamp)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.CrUser)
+            </dt>
+            <dd class="col-sm-14">
+                @Html.DisplayFor(model => model.CrUser)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.CrTimestamp)
+            </dt>
+            <dd class="col-sm-14">
+                @Html.DisplayFor(model => model.CrTimestamp)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Kategorie)
+            </dt>
+            <dd class="col-sm-14">
+                @Html.DisplayFor(model => model.Kategorie.Bezeichnung)
+            </dd>
+        </dl>
+
+        <form asp-action="Delete">
+            <input type="hidden" asp-for="Einnahmeid" />
+            <input type="submit" value="Delete" class="btn btn-danger" /> |
+            <a asp-controller="Home" asp-action="Index">Back to List</a>
+        </form>
+    </div>
+
+</div>

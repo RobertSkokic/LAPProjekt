@@ -1,0 +1,63 @@
+﻿@model LAPEinnahmeAusgabeRechner.Models.dboSchema.Kategorie
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<div class="container">
+    <h1>Details</h1>
+
+    <div>
+        <h4>Kategorie</h4>
+        <hr />
+        <dl class="row">
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Bezeichnung)
+            </dt>
+            <dd class="col-sm-14">
+                @Html.DisplayFor(model => model.Bezeichnung)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Farbe)
+            </dt>
+            <dd class="col-sm-14">
+                @Html.DisplayFor(model => model.Farbe)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Valid)
+            </dt>
+            <dd class="col-sm-14">
+                @Html.DisplayFor(model => model.Valid)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.ModUser)
+            </dt>
+            <dd class="col-sm-14">
+                @Html.DisplayFor(model => model.ModUser)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.ModTimestamp)
+            </dt>
+            <dd class="col-sm-14">
+                @Html.DisplayFor(model => model.ModTimestamp)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.CrUser)
+            </dt>
+            <dd class="col-sm-14">
+                @Html.DisplayFor(model => model.CrUser)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.CrTimestamp)
+            </dt>
+            <dd class="col-sm-14">
+                @Html.DisplayFor(model => model.CrTimestamp)
+            </dd>
+        </dl>
+    </div>
+    <div>
+        <a asp-action="Edit" asp-route-id="@Model?.Kategorieid">Edit</a> |
+        <a asp-action="Index">Back to List</a>
+    </div>
+</div>
+

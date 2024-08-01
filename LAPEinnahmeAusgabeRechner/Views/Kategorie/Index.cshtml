@@ -1,0 +1,74 @@
+﻿@model IEnumerable<LAPEinnahmeAusgabeRechner.Models.dboSchema.Kategorie>
+
+@{
+    ViewData["Title"] = "Index";
+}
+<div class="indexContainer">
+    <h1>Kategorie Index</h1>
+
+    <p>
+        <a class="btn" asp-action="Create">Create New</a>
+    </p>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Bezeichnung)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Farbe)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Valid)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ModUser)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ModTimestamp)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.CrUser)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.CrTimestamp)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Bezeichnung)
+                    </td>
+                    <td style="color: @item.Farbe">
+                        @Html.DisplayFor(modelItem => item.Farbe)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Valid)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ModUser)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ModTimestamp)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CrUser)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CrTimestamp)
+                    </td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.Kategorieid">Edit</a> |
+                        <a asp-action="Details" asp-route-id="@item.Kategorieid">Details</a> |
+                        <a asp-action="Delete" asp-route-id="@item.Kategorieid">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+</div>

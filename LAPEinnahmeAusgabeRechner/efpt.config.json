@@ -1,0 +1,122 @@
+﻿{
+   "CodeGenerationMode": 4,
+   "ContextClassName": "LAPEinnahmeAusgabeRechnerContext",
+   "ContextNamespace": null,
+   "FilterSchemas": false,
+   "IncludeConnectionString": false,
+   "ModelNamespace": null,
+   "OutputContextPath": null,
+   "OutputPath": "Models",
+   "PreserveCasingWithRegex": true,
+   "ProjectRootNamespace": "LAPEinnahmeAusgabeRechner",
+   "Schemas": null,
+   "SelectedHandlebarsLanguage": 2,
+   "SelectedToBeGenerated": 0,
+   "T4TemplatePath": null,
+   "Tables": [
+      {
+         "Name": "[dbo].[AUSGABE]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[EINNAHME]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[KATEGORIE]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[AusgabeDelete]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[AusgabeGetAll]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[AusgabeGetByAusgabeID]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[AusgabeGetByKategorieID]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[AusgabeInsert]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[AusgabeUpdate]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[EinnahmeDelete]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[EinnahmeGetAll]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[EinnahmeGetByEinnahmeID]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[EinnahmeGetByKategorieID]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[EinnahmeInsert]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[EinnahmeUpdate]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[KategorieDelete]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[KategorieGetAll]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[KategorieGetByKategorieID]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[KategorieInsert]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[KategorieUpdate]",
+         "ObjectType": 1
+      }
+   ],
+   "UiHint": null,
+   "UncountableWords": null,
+   "UseAsyncStoredProcedureCalls": true,
+   "UseBoolPropertiesWithoutDefaultSql": false,
+   "UseDatabaseNames": false,
+   "UseDateOnlyTimeOnly": false,
+   "UseDbContextSplitting": true,
+   "UseDecimalDataAnnotationForSprocResult": true,
+   "UseFluentApiOnly": false,
+   "UseHandleBars": false,
+   "UseHierarchyId": false,
+   "UseInflector": false,
+   "UseLegacyPluralizer": false,
+   "UseManyToManyEntity": false,
+   "UseNoDefaultConstructor": false,
+   "UseNoNavigations": false,
+   "UseNoObjectFilter": false,
+   "UseNodaTime": false,
+   "UseNullableReferences": false,
+   "UsePrefixNavigationNaming": false,
+   "UseSchemaFolders": true,
+   "UseSchemaNamespaces": true,
+   "UseSpatial": false,
+   "UseT4": false
+}
